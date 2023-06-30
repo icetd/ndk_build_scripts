@@ -1,1 +1,1 @@
-## Scripts for build thirdparty for ndk application
+## Scripts to build thirdparty for ndk application
