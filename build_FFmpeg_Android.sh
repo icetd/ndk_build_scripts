@@ -19,20 +19,20 @@ function build
 		--extra-ldexeflags=-pie \
 		--disable-static \
 		--enable-shared \
-		--enable-libx264 \
-		--enable-gpl \
+		--disable-libx264 \
+		--disable-gpl \
 		--enable-decoder=flac,ape,mp3 \
-		--disable-protocols \
+		--enable-protocols \
 		--enable-protocol=file \
-		--disable-muxers \
-		--disable-demuxers \
+		--enable-muxers \
+		--enable-demuxers \
 		--enable-demuxer=flac,ape,mp3 \
 		--enable-cross-compile \
 		--enable-small \
 		--enable-jni \
 		--pkg-config="pkg-config --static"
-#		--extra-cflags="${EXTRA_CFLAGS}" 
-#		--extra-ldflags="${EXTRA_LIB}" 
+		--extra-cflags="${EXTRA_CFLAGS}" 
+		--extra-ldflags="${EXTRA_LIB}" 
 
 	make clean
 	make -j8
@@ -61,9 +61,9 @@ export NM=${TOOLCHAIN_PREFIX}/llvm-nm
 export STRIP=${TOOLCHAIN_PREFIX}/llvm-strip
 export RANLIB=${TOOLCHAIN_PREFIX}/llvm-ranlib
 export PKG_CONFIG_PATH=/home/ubuntu/share/x264/Android/${CPU}/lib/pkgconfig
-#EXTRA_CFLAGS=-I${X264_LIB}/Android/${CPU}/include
-#EXTRA_LIB=-L${X264_LIB}/Android/${CPU}/lib
-OUT_DIR=./Android/${CPU}
+EXTRA_CFLAGS=-I${X264_LIB}/Android/${CPU}/include
+EXTRA_LIB=-L${X264_LIB}/Android/${CPU}/lib
+OUT_DIR=./Android/armeabi-v7a
 build
  
 
@@ -85,9 +85,9 @@ export NM=${TOOLCHAIN_PREFIX}/llvm-nm
 export STRIP=${TOOLCHAIN_PREFIX}/llvm-strip
 export RANLIB=${TOOLCHAIN_PREFIX}/llvm-ranlib
 export PKG_CONFIG_PATH=/home/ubuntu/share/x264/Android/${CPU}/lib/pkgconfig
-#EXTRA_CFLAGS=-I${X264_LIB}/Android/${CPU}/include
-#EXTRA_LIB=-L${X264_LIB}/Android/${CPU}/lib
-OUT_DIR=./Android/${CPU}
+EXTRA_CFLAGS=-I${X264_LIB}/Android/${CPU}/include
+EXTRA_LIB=-L${X264_LIB}/Android/${CPU}/lib
+OUT_DIR=./Android/armeabi-v8a
 build
 
 
@@ -109,8 +109,8 @@ export NM=${TOOLCHAIN_PREFIX}/llvm-nm
 export STRIP=${TOOLCHAIN_PREFIX}/llvm-strip
 export RANLIB=${TOOLCHAIN_PREFIX}/llvm-ranlib
 export PKG_CONFIG_PATH=/home/ubuntu/share/x264/Android/${CPU}/lib/pkgconfig
-#EXTRA_CFLAGS=-I${X264_LIB}/Android/${CPU}/include
-#EXTRA_LIB=-L${X264_LIB}/Android/${CPU}/lib
+EXTRA_CFLAGS=-I${X264_LIB}/Android/${CPU}/include
+EXTRA_LIB=-L${X264_LIB}/Android/${CPU}/lib
 OUT_DIR=./Android/${CPU}
 build
 
