@@ -1,9 +1,7 @@
 #!/bin/bash
 NDKROOT_PATH=/home/ubuntu/share/NDK/android-ndk-r23c
 CUR_PATH=$(pwd)
-
 export TOOLCHAIN=$NDKROOT_PATH/toolchains/llvm/prebuilt/linux-x86_64
-
 
 function build {
 	./configure --host=${TARGET} \
