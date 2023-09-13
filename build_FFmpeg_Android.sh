@@ -21,14 +21,6 @@ function build
 		--enable-shared \
 		--enable-libx264 \
 		--enable-gpl \
-		--disable-doc \
-		--disable-programs \
-		--disable-avdevice \
-		--disable-swscale \
-		--disable-postproc \
-		--disable-symver \
-		--disable-encoders \
-		--disable-decoders \
 		--enable-decoder=flac,ape,mp3 \
 		--disable-protocols \
 		--enable-protocol=file \
@@ -36,12 +28,11 @@ function build
 		--disable-demuxers \
 		--enable-demuxer=flac,ape,mp3 \
 		--enable-cross-compile \
-		--disable-indevs \
-		--disable-outdevs \
 		--enable-small \
 		--enable-jni \
-		--extra-cflags="${EXTRA_CFLAGS}" \
-		--extra-ldflags="${EXTRA_LIB}" 
+		--pkg-config="pkg-config --static"
+#		--extra-cflags="${EXTRA_CFLAGS}" 
+#		--extra-ldflags="${EXTRA_LIB}" 
 
 	make clean
 	make -j8
@@ -58,7 +49,7 @@ Starting build ffmpeg for armv7a
 *********************************************
 "
 sleep 2
-API=31
+API=30
 ARCH=arm
 CPU=armv7a
 PREFIX=$(pwd)/android/${ARCH}
@@ -69,8 +60,9 @@ export AR=${TOOLCHAIN_PREFIX}/llvm-ar
 export NM=${TOOLCHAIN_PREFIX}/llvm-nm
 export STRIP=${TOOLCHAIN_PREFIX}/llvm-strip
 export RANLIB=${TOOLCHAIN_PREFIX}/llvm-ranlib
-EXTRA_CFLAGS=-I${X264_LIB}/Android/${CPU}/include
-EXTRA_LIB=-L${X264_LIB}/Android/${CPU}/lib
+export PKG_CONFIG_PATH=/home/ubuntu/share/x264/Android/${CPU}/lib/pkgconfig
+#EXTRA_CFLAGS=-I${X264_LIB}/Android/${CPU}/include
+#EXTRA_LIB=-L${X264_LIB}/Android/${CPU}/lib
 OUT_DIR=./Android/${CPU}
 build
  
@@ -81,18 +73,45 @@ Starting build ffmpeg for armv8a
 *********************************************
 "
 sleep 2
-API=31
+API=30
 ARCH=arm64
 CPU=armv8a
 PREFIX=$(pwd)/android/${ARCH}
 TOOLCHAIN_PREFIX=${NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin
-export CROSS_PREFIX=${TOOLCHAIN_PREFIX}/aarch64-linux-android$API
 SYSROOT=${TOOLCHAIN_PREFIX}/sysroot
+export CROSS_PREFIX=${TOOLCHAIN_PREFIX}/aarch64-linux-android$API
 export AR=${TOOLCHAIN_PREFIX}/llvm-ar
 export NM=${TOOLCHAIN_PREFIX}/llvm-nm
 export STRIP=${TOOLCHAIN_PREFIX}/llvm-strip
 export RANLIB=${TOOLCHAIN_PREFIX}/llvm-ranlib
-EXTRA_CFLAGS=-I${X264_LIB}/Android/${CPU}/include
-EXTRA_LIB=-L${X264_LIB}/Android/${CPU}/lib
+export PKG_CONFIG_PATH=/home/ubuntu/share/x264/Android/${CPU}/lib/pkgconfig
+#EXTRA_CFLAGS=-I${X264_LIB}/Android/${CPU}/include
+#EXTRA_LIB=-L${X264_LIB}/Android/${CPU}/lib
 OUT_DIR=./Android/${CPU}
 build
+
+
+echo "
+*********************************************
+Starting build ffmpeg for x86_64
+*********************************************
+"
+sleep 2
+API=30
+ARCH=x86_64
+CPU=x86_64
+PREFIX=$(pwd)/android/${ARCH}
+TOOLCHAIN_PREFIX=${NDK_HOME}/toolchains/llvm/prebuilt/linux-x86_64/bin
+SYSROOT=${TOOLCHAIN_PREFIX}/sysroot
+export CROSS_PREFIX=${TOOLCHAIN_PREFIX}/x86_64-linux-android$API
+export AR=${TOOLCHAIN_PREFIX}/llvm-ar
+export NM=${TOOLCHAIN_PREFIX}/llvm-nm
+export STRIP=${TOOLCHAIN_PREFIX}/llvm-strip
+export RANLIB=${TOOLCHAIN_PREFIX}/llvm-ranlib
+export PKG_CONFIG_PATH=/home/ubuntu/share/x264/Android/${CPU}/lib/pkgconfig
+#EXTRA_CFLAGS=-I${X264_LIB}/Android/${CPU}/include
+#EXTRA_LIB=-L${X264_LIB}/Android/${CPU}/lib
+OUT_DIR=./Android/${CPU}
+build
+
+
